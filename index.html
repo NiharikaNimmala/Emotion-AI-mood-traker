@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="'index.css">
+
+</head>
+
+<body>
+
+    <div class="Cam-permission" id="camPermission">
+        <h1 class="Cam-permission-heading">Enable cam permissions for better user experience</h1>
+        <div>
+            <input type="checkbox" id="Enable" class="inputElement" />
+            <label for="Enable" class="Cam-permission-label">Enable</label>
+            <input type="checkbox" id="AlreadyDone" />
+            <label for="Already Done" class="Cam-permission-label">Already Done</label>
+        </div>
+        <br>
+        <button class="Call-permission-button" id="buttonEl" onclick="display('userPermission')">Proceed</button>
+    </div>
+
+    <div class="User-permission" id="userPermission">
+        <div class="User-background">
+            <a class="User-permission-owner">E N H A N C E</a>
+            <h1 class="User-permission-heading">Start your journey for the better user experience with us!!</h1>
+            <div class="text-align">
+                <button class="User-permission-button" id="StartBtn">START</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="emotion-detection-container" id="emotionDetectionContainer">
+        <button type="button" onclick="init()" class="emotion-detection-button">Start</button>
+        <p id="result" class="result-para"></p>
+        <button id="backbtn">Back</button>
+
+
+
+        <div id="carouselExampleControls" class="carousel slide carousel-size" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="https://d2x02matzb08hy.cloudfront.net/img/clothing/hero_image/781223698/Untitled_design__90_.jpg" class="d-block w-100 image-size" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://img1.eshakti.com/clothimages/CL0090169EP.jpg" class="d-block w-100 image-size" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://images.meesho.com/images/products/206285609/w4vvf_512.jpg" class="d-block w-100 image-size" alt="...">
+                </div>
+
+                <div class="carousel-item">
+                    <img src="https://5.imimg.com/data5/VW/KI/MY-14079919/party-gown-500x500.jpg" class="d-block w-100 image-size" alt="...">
+                </div>
+
+
+                <div class="carousel-item">
+                    <img src="https://i.pinimg.com/564x/de/f1/2b/def12b839198bc0f094e21960886ef1d.jpg" class="d-block w-100 image-size" alt="...">
+                </div>
+
+
+                <div class="carousel-item">
+                    <img src="https://i.pinimg.com/564x/de/f1/2b/def12b839198bc0f094e21960886ef1d.jpg" class="d-block w-100 image-size" alt="...">
+                </div>
+
+
+                <div class="carousel-item">
+                    <img src="https://i.pinimg.com/474x/f8/e9/57/f8e957888dabc85fc918afe78403bf68.jpg" class="d-block w-100 image-size" alt="...">
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+
+        <div class="web-label-container">
+            <div id="webcam-container"></div>
+            <div id="label-container" class="labelContainer"></div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+    <script type="text/javascript">
+        // More API functions here:
+        // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
+
+        // the link to your model provided by Teachable Machine export panel
+        const URL = "./my_model/";
+
+        let data = []
+
+        let finalData = {
+            happy: 0,
+            sad: 0,
+            neutral: 0,
+            surprise: 0,
+            disgust: 0,
+        }
+
+        let model, webcam, labelContainer, maxPredictions;
+
+        // Load the image model and setup the webcam
+        async function init() {
+            const modelURL = "https://storage.googleapis.com/tm-model/2q6aVv3js/" + "model.json";
+            const metadataURL = "https://storage.googleapis.com/tm-model/2q6aVv3js/" + "metadata.json";
+
+            // load the model and metadata
+            // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
+            // or files from your local hard drive
+            // Note: the pose library adds "tmImage" object to your window (window.tmImage)
+            model = await tmImage.load(modelURL, metadataURL);
+            maxPredictions = model.getTotalClasses();
+
+            // Convenience function to setup a webcam
+            const flip = true; // whether to flip the webcam
+            webcam = new tmImage.Webcam(200, 200, flip); // width, height, flip
+            await webcam.setup(); // request access to the webcam
+            await webcam.play();
+
+
+            let timeId = setInterval(() => {
+                window.requestAnimationFrame(loop);
+            }, 5000)
+
+            setInterval(() => {
+                clearInterval(timeId)
+
+                let max = "happy"
+
+                if (parseFloat(finalData[max]) < parseFloat(finalData.sad)) {
+                    max = "sad"
+                }
+                if (parseFloat(finalData[max]) < parseFloat(finalData.neutral)) {
+                    max = "neutral"
+                }
+                if (parseFloat(finalData[max]) < parseFloat(finalData.surprise)) {
+                    max = "surprise"
+                }
+                if (parseFloat(finalData[max]) < parseFloat(finalData.disgust)) {
+                    max = "disgust"
+                }
+
+
+
+
+                if (max === "happy") {
+                    document.getElementById("result").textContent = "User is satisfied with recommendations";
+                }
+
+                if (max === "sad") {
+                    document.getElementById("result").textContent = "User is not satisfied with recommendations";
+                }
+
+                if (max === "neutral") {
+                    document.getElementById("result").textContent = "User is OK with recommendations";
+                }
+
+                if (max === "surprise") {
+                    document.getElementById("result").textContent = "User is highly satisfied with recommendations";
+                }
+
+                if (max === "disgust") {
+                    document.getElementById("result").textContent = "User is hated this recommendations";
+                }
+
+            }, 40000)
+
+
+
+
+
+            // append elements to the DOM
+            document.getElementById("webcam-container").appendChild(webcam.canvas);
+            labelContainer = document.getElementById("label-container");
+            for (let i = 0; i < maxPredictions; i++) { // and class labels
+                labelContainer.appendChild(document.createElement("div"));
+            }
+        }
+
+
+
+        async function loop() {
+            webcam.update(); // update the webcam frame
+            await predict()
+
+        }
+
+        // run the webcam image through the image model
+        async function predict() {
+
+
+            // predict can take in an image, video or canvas html element
+            const prediction = await model.predict(webcam.canvas);
+
+
+
+            for (let i = 0; i < maxPredictions; i++) {
+                const classPrediction = prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+
+                labelContainer.childNodes[i].innerHTML = classPrediction;
+
+            }
+
+            let pred = {
+                happy: parseFloat(prediction[0].probability.toFixed(2)),
+                sad: parseFloat(prediction[1].probability.toFixed(2)),
+                neutral: parseFloat(prediction[2].probability.toFixed(2)),
+                surprise: parseFloat(prediction[3].probability.toFixed(2)),
+                disgust: parseFloat(prediction[4].probability.toFixed(2)),
+            }
+
+            data.push(pred)
+            console.log(pred)
+
+            let greater = "happy"
+
+            if (parseFloat(pred[greater]) < parseFloat(pred.sad)) {
+                greater = "sad"
+            }
+            if (parseFloat(pred[greater]) < parseFloat(pred.neutral)) {
+                greater = "neutral"
+            }
+            if (parseFloat(pred[greater]) < parseFloat(pred.surprise)) {
+                greater = "surprise"
+            }
+            if (parseFloat(pred[greater]) < parseFloat(pred.disgust)) {
+                greater = "disgust"
+            }
+
+            console.log(pred[greater])
+
+
+            finalData[greater] = finalData[greater] + 1
+            console.log(finalData)
+
+        }
+    </script>
+
+
+    <script type="text/javascript" src="https://d1tgh8fmlzexmh.cloudfront.net/ccbp-static-website/js/ccbp-ui-kit.js"></script>
+
+</body>
+
+</html>

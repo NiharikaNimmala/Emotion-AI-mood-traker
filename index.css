@@ -1,0 +1,179 @@
+@import url('https://fonts.googleapis.com/css2?family=Bree+Serif&family=Caveat:wght@400;700&family=Lobster&family=Monoton&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display+SC:ital,wght@0,400;0,700;1,700&family=Playfair+Display:ital,wght@0,400;0,700;1,700&family=Roboto:ital,wght@0,400;0,700;1,400;1,700&family=Source+Sans+Pro:ital,wght@0,400;0,700;1,700&family=Work+Sans:ital,wght@0,400;0,700;1,700&display=swap');
+
+
+.Cam-permission {
+    background-image: url("https://assets.ccbp.in/frontend/intermediate-rwd/fairpods-darkpink-bg.png");
+    background-size: cover;
+    width: 100%;
+    height: 100vh;
+    padding-left: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+@media screen and (min-height:768px) {
+    .Cam-permission {
+        background-image: url("https://assets.ccbp.in/frontend/intermediate-rwd/fairpods-blue-bg.png");
+    }
+}
+
+.Cam-permission-heading {
+    color: #ffffff;
+    font-family: "roboto";
+}
+
+.Cam-permission-label {
+    color: #ffffff;
+    margin-right: 25px;
+}
+
+.inputElement {
+    padding-left: 10px;
+}
+
+.Call-permission-button {
+    height: 35px;
+    width: 100px;
+    color: #ffffff;
+    background-color: transparent;
+    border-radius: 10px;
+    border-color: #ffffff;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.Call-permission-button:hover {
+    height: 35px;
+    width: 100px;
+    color: black;
+    background-color: #ffffff;
+    border-radius: 10px;
+    border-color: #ffffff;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.User-background {
+    background-image: url("https://assets.ccbp.in/frontend/intermediate-rwd/fairpods-darkpink-bg.png");
+    height: 100vh;
+    width: 100%;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+
+@media screen and (min-height:768px) {
+    .User-background {
+        background-image: url("https://assets.ccbp.in/frontend/intermediate-rwd/fairpods-blue-bg.png")
+    }
+}
+
+.User-permission-button {
+    background-color: transparent;
+    height: 40px;
+    width: 250px;
+    color: #ffffff;
+    border-radius: 10px;
+    border-color: #ffffff;
+    border-style: solid;
+    border-width: 1px;
+    margin: 15px;
+}
+
+.text-align {
+    text-align: left;
+}
+
+
+.User-permission-heading {
+    margin-top: 0px;
+    font-family: "roboto";
+    font-weight: 500;
+    text-align: left;
+    padding-left: 15px;
+    color: #ffffff;
+}
+
+.User-permission-owner {
+    font-size: 20px;
+    font-weight: bold;
+    padding-left: 15px;
+    color: #aa0d9f;
+}
+
+@media screen and (min-height:768px) {
+    .User-permission-owner {
+        color: #1f8fc4;
+    }
+
+}
+
+.User-permission-button:hover {
+    background-color: #ffffff;
+    height: 40px;
+    width: 250px;
+    color: black;
+    border-radius: 10px;
+    border-color: #ffffff;
+    border-style: solid;
+    border-width: 1px;
+    margin: 15px;
+}
+
+.emotion-detection-container {
+    flex-direction: column;
+    background-image: url("https://assets.ccbp.in/frontend/intermediate-rwd/fairpods-darkpink-bg.png");
+    background-size: cover;
+    height: 100vh;
+    max-height: 250vh;
+    width: 100%;
+    justify-content: center;
+    color: #ffffff;
+    align-items: center;
+}
+
+.carousel-size {
+    padding-left: 45px;
+    padding-right: 45px;
+}
+
+
+.image-size {
+    height: 500px;
+}
+
+
+.web-label-container {
+    display: flex;
+    flex-direction: row;
+}
+
+
+.result-para {
+    font-family: "Open Sans";
+    font-size: 35px;
+    text-align: center;
+}
+
+.labelContainer {
+    margin: 18px;
+    font-size: 20px;
+    padding: 25px;
+    margin-top: 10px;
+}
+
+
+.emotion-detection-button {
+    background-color: transparent;
+    height: 40px;
+    width: 200px;
+    color: #ffffff;
+    border-radius: 10px;
+    border-color: #ffffff;
+    border-style: solid;
+    border-width: 1px;
+    margin: 15px;
+}
